@@ -1,5 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File
 from faster_whisper import WhisperModel
+import tempfile
+import os
 
 app = FastAPI()
 
@@ -19,3 +21,24 @@ def root():
     return {
         "message": "Whisper API is running!"
     }
+
+@app.post("/transcribe")
+async def transcribe(file: UploadFile = File(...)):
+    suffix = os.path.splitext(file.filename)[1] or ".webm"
+
+    with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as temp_audio:
+        temp_audio.write(await file.read())
+        temp_path = temp_audio.name
+
+    try:
+        segments, info = model.transcribe(temp_path)
+
+        text = " ".join(segment.text for segment in segments).strip()
+
+        return {
+            "language": info.language,
+            "text": text
+        }
+
+    finally:
+        os.remove(temp_path)
