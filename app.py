@@ -2,15 +2,18 @@ from fastapi import FastAPI, UploadFile, File
 from faster_whisper import WhisperModel
 from fastapi.middleware.cors import CORSMiddleware
 import tempfile
+from dotenv import load_dotenv
 import os
+
+load_dotenv()
+
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "").split(",")
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
