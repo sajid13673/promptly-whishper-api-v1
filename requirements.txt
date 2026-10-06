@@ -2,3 +2,4 @@
    uvicorn
    faster-whisper
    python-multipart
+   python-dotenv
