@@ -1,6 +1,6 @@
-   fastapi
-   uvicorn
-   faster-whisper>=1.1.0
-av>=14.0.0
-   python-multipart
-   python-dotenv
+fastapi
+uvicorn
+faster-whisper
+python-multipart
+python-dotenv
+av>=11,<15
