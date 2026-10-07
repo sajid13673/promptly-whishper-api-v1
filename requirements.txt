@@ -3,4 +3,4 @@ uvicorn
 faster-whisper
 python-multipart
 python-dotenv
-av>=11,<15
+av>=14

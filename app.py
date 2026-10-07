@@ -1,3 +1,6 @@
+import av, faster_whisper
+print("av:", av.__version__, "| faster-whisper:", faster_whisper.__version__, flush=True)
+
 from fastapi import FastAPI, UploadFile, File
 from faster_whisper import WhisperModel
 from fastapi.middleware.cors import CORSMiddleware
